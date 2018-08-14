@@ -1,69 +1,56 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {
-  playerCreate,
-  playerUpdate,
-} from '../actions/player-actions.js';
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
 
-class PlayerForm extends React.Component {
+class CountryForm extends Component {
+  
   constructor(props) {
     super(props);
-    this.state = {
+    this.defaultState = {
       name: '',
-      position: 0,
-      isEditing: false,
-    }
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePositionChange = this.handlePositionChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+      budget: 0,
+    };
 
-  handleNameChange(event) {
-    let newState = {
-      name: event.target.value
-    }
-    this.setState(newState);
-  }
+    const initialState = this.props.country || this.defaultState;
 
-  handlePositionChange(event) {
-    let newState = {
-      position: event.target.value
-    }
-    this.setState(newState);
+    this.state =  {...initialState};
   }
-
-  handleSubmit(event) {
-    let submitFormName = this.props.name;
+  
+  onSubmit = event => {
     event.preventDefault();
-    if (this.props.name === 'create') {
-      this.props.playerCreate(this.state);
-    } else if (this.props.name === 'update') {
-      let newValue = Object.assign(this.state, {isEditing: false, id: this.props.id});
-      this.props.playerUpdate(this.state);
-    }
-  }
+    this.props.onComplete(this.state);
+    this.setState({ ...this.defaultState });
+  };
 
+  onChange = event => {
+    const val = event.target.value;
+
+    const changedBit = {
+      [event.target.name]: val
+    };
+    this.setState(changedBit);
+  };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input onChange={this.handleNameChange} type="text" placeholder="player name" required="true"/>
-        <input onChange={this.handlePositionChange} name="position" type="text" placeholder="player position" required="true"/>
-        <button type="submit">Submit</button>
+      <form onSubmit={this.onSubmit}>
+        <input name="category" placeholder="category" value={this.state.category} onChange={this.onChange} />
+        <input name="budget" placeholder="buget" value={this.state.bugdet} onChange={this.onChange} />
+        <button>{this.props.buttonText}</button>
       </form>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  players: state.players
-});
+CountryForm.propTypes = {
+  onComplete: PropTypes.func.isRequired,
+  buttonText: PropTypes.string.isRequired,
+  country: PropTypes.object,
+}
 
-const mapDispatchToProps = (dispatch, getState) => {
-  return {
-    playerCreate: val => dispatch(playerCreate(val)),
-    playerUpdate: val => dispatch(playerUpdate(val)),
+CountryForm.defaultProps = {
+  category: {
+    name: '',
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerForm);
+export default CountryForm;

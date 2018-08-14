@@ -1,62 +1,42 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {
-  playerUpdate,
-  playerDestroy,
-} from '../actions/player-actions.js';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import CountryForm from './player-form';
 
-// import PlayerForm from './player-form.js';
-import UpdateForm from './UpdateForm.js';
+export default class CountryItem extends Component {
 
+  state = {
+    editing: false
+  };
 
-class PlayerItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDelete = this.handleDelete.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.toggleOffEdit = this.toggleOffEdit.bind(this);
+  showEditForm = () => {
+    this.setState({ editing: true })
   }
 
-  toggleEdit(event) {
-    let id = event.target.id;
-    this.props.playerUpdate({isEditing: true, id});;
+  updateCountry = (country) => {
+    this.setState({
+      editing: false
+    });
+    this.props.onComplete(country);
   }
 
-  toggleOffEdit(event) {
-    let id = event.target.id;
-    this.props.playerUpdate({isEditing: false, id});;
+  deleteCountry = () => {
+    this.props.onDelete(this.props.country);
   }
 
-  handleDelete(event) {
-    event.preventDefault();
-    let id = event.target.id;
-    this.props.playerDestroy(id);
-  }
 
   render() {
-    if (this.props.isEditing === true) {
-      return (
-        <div>
-          <UpdateForm name={this.props.name} id={this.props.id} position={this.props.position}></UpdateForm><button onClick={this.toggleOffEdit} id={this.props.id}>Cancel</button>
-        </div>
-      )
-    }
     return (
-      <li key={this.props.key} id={this.props.id}> Name: {this.props.name} Position:{this.props.position} <button id={this.props.id} onClick={this.handleDelete}>X</button> <button id={this.props.id} onClick={this.toggleEdit}>Edit</button></li>
-    )
+      <div> 
+      <span onClick={this.showEditForm}>{this.props.country.name}</span>
+      <button onClick={this.deleteCountry}>x</button>
+      {this.state.editing && <CountryForm onComplete={this.updateCountry} buttonText="update" country={this.props.country} />}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
-  players: state.players
-});
-
-const mapDispatchToProps = (dispatch, getState) => {
-  return {
-    playerUpdate: (values) => dispatch(playerUpdate(values)),
-    playerDestroy: id => dispatch(playerDestroy(id)),
-  }
+CountryItem.propTypes = {
+  onComplete: PropTypes.func,
+  onDelete: PropTypes.func,
+  country: PropTypes.object,
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerItem);
