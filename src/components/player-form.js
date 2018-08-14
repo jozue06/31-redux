@@ -18,23 +18,23 @@ class CountryForm extends Component {
   onSubmit = event => {
     event.preventDefault();
     this.props.onComplete(this.state);
-    this.setState({ ...this.defaultState });
+    this.setState({ ...this.defaultState }, () => console.log('state ', this.state));
   };
 
   onChange = event => {
-    const val = event.target.value;
+    
 
     const changedBit = {
-      [event.target.name]: val
+      [event.target.name]: event.target.value
     };
-    this.setState(changedBit);
+    this.setState(changedBit)
   };
 
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input name="category" placeholder="category" value={this.state.category} onChange={this.onChange} />
-        <input name="budget" placeholder="buget" value={this.state.bugdet} onChange={this.onChange} />
+        <input name="category" placeholder="category" value={this.props.name} onChange={this.onChange} />
+        <input name="budget" placeholder="budget" value={this.props.bugdet} onChange={this.onChange} />
         <button>{this.props.buttonText}</button>
       </form>
     );
@@ -44,12 +44,13 @@ class CountryForm extends Component {
 CountryForm.propTypes = {
   onComplete: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
-  country: PropTypes.object,
+  category: PropTypes.object,
 }
 
 CountryForm.defaultProps = {
   category: {
     name: '',
+    budget:0,
   }
 }
 
