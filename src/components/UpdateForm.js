@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-  playerCreate,
-  playerUpdate,
-} from '../actions/player-actions.js';
+  categoryCreate,
+  categoryUpdate,
+} from '../actions/actions.js';
 
 class UpdateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.name,
-      position: this.props.position,
+      budget: this.props.budget,
       isEditing: true,
     }
     this.onChange = this.onChange.bind(this);
@@ -28,7 +28,7 @@ class UpdateForm extends React.Component {
   handleSubmit(e) {
       e.preventDefault()
       console.log('updeate is editing', this.state.isEditing)
-      this.props.playerUpdate(this.state);
+      this.props.categoryUpdate(this.state);
     
   }
 
@@ -36,8 +36,8 @@ class UpdateForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit } >
-        <input onChange={this.onChange} type="text" name="name" placeholder="player name" value={this.state.name} required="true"/>
-        <input onChange={this.onChange} name="position" type="text" placeholder="player position" value={this.state.position} required="true"/>
+        <input onChange={this.onChange} type="text" name="name" placeholder="Category" value={this.state.name} required="true"/>
+        <input onChange={this.onChange} name="buget" type="text" placeholder="Budget" value={this.state.budget} required="true"/>
         <button type="submit">Submit</button>
       </form>
     )
@@ -67,8 +67,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    playerCreate: val => dispatch(playerCreate(val)),
-    playerUpdate: val => dispatch(playerUpdate(val)),
+    categoryCreate: val => dispatch(categoryCreate(val)),
+    categoryUpdate: val => dispatch(categoryUpdate(val)),
   }
 }
 

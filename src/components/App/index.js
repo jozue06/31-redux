@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import store from './store';
-import './App.css';
+import Dashboard from '../Dashboard/index.js';
+import store from '../../store/index';
+// import './App.css';
 
 class App extends Component {
   render() {
