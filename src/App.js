@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 import createStore from './lib/store';
-import Dashboard from './components/dashboard.js';
+import Dashboard from './components/Dashboard.js';
 
 const store = createStore();
 
