@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 
-class CountryForm extends Component {
+class CategoryForm extends Component {
   
   constructor(props) {
     super(props);
     this.defaultState = {
-      name: '',
-      budget: 0,
+     
     };
 
-    const initialState = this.props.country || this.defaultState;
+    const initialState = this.props.category || this.defaultState;
 
     this.state =  {...initialState};
   }
@@ -33,25 +32,24 @@ class CountryForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input name="category" placeholder="category" value={this.props.name} onChange={this.onChange} />
-        <input name="budget" placeholder="budget" value={this.props.bugdet} onChange={this.onChange} />
+        <input name="category" placeholder="category" value={this.props.category.category} onChange={this.onChange} />
+        <input name="budget" placeholder="budget" value={this.props.category.bugdet} onChange={this.onChange} />
         <button>{this.props.buttonText}</button>
       </form>
     );
   }
 }
 
-CountryForm.propTypes = {
+CategoryForm.propTypes = {
   onComplete: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
   category: PropTypes.object,
 }
 
-CountryForm.defaultProps = {
+CategoryForm.defaultProps = {
   category: {
-    name: '',
-    budget:0,
+  
   }
 }
 
-export default CountryForm;
+export default CategoryForm;

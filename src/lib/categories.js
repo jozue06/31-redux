@@ -1,9 +1,9 @@
 import uuid from 'uuid/v1';
 
 // Actions
-const ADD = 'Country/ADD';
-const UPDATE = 'Country/UPDATE';
-const DELETE = 'Country/DELETE';
+const ADD = 'Category/ADD';
+const UPDATE = 'Category/UPDATE';
+const DELETE = 'Ccategory/DELETE';
 
 const defaultState = [];
 
@@ -19,33 +19,33 @@ export default function reducer(state = defaultState, action) {
       return [...state, payload];
 
     case UPDATE:
-      return state.map(country => country.id === payload.id ? payload : country);
+      return state.map(category => category.id === payload.id ? payload : category);
     
     case DELETE:
-      return state.filter(country => country.id !== payload.id);
+      return state.filter(category => category.id !== payload.id);
 
     default: return state;
   }
 }
 
 // Action Creators
-export function addCountry(country) {
+export function addCategory(category) {
   return {
     type: ADD,
-    payload: country
+    payload: category
   }
 }
 
-export function updateCountry(country) {
+export function updateCategory(category) {
   return {
     type: UPDATE,
-    payload: country
+    payload: category
   }
 }
 
-export function deleteCountry(country) {
+export function deleteCategory(category) {
   return {
     type: DELETE,
-    payload: country
+    payload: category
   }
 }
