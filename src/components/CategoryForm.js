@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
+import S from '../style/styles'
 
 class CategoryForm extends Component {
   
   constructor(props) {
     super(props);
     this.defaultState = {
+      
      
     };
 
@@ -31,11 +33,13 @@ class CategoryForm extends Component {
 
   render() {
     return (
+      <S.Wrapper>
       <form onSubmit={this.onSubmit}>
-        <input name="category" placeholder="category" value={this.props.category.category} onChange={this.onChange} />
-        <input name="budget" placeholder="budget" value={this.props.category.bugdet} onChange={this.onChange} />
+        <input name="name" type="text" iropdent="category formstuff" placeholder="category" value={this.props.name} onChange={this.onChange} />
+        <input name="budget" type="number" placeholder="budget" value={this.props.budget} onChange={this.onChange} />
         <button>{this.props.buttonText}</button>
       </form>
+      </S.Wrapper>
     );
   }
 }
@@ -48,7 +52,7 @@ CategoryForm.propTypes = {
 
 CategoryForm.defaultProps = {
   category: {
-  
+    
   }
 }
 

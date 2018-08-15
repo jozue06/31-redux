@@ -1,21 +1,29 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addCategory, updateCategory, deleteCategory } from '../lib/categories.js';
 import CategoryForm from './CategoryForm.js';
 import CategoryItem from './CategoryItem.js';
+import Header from './Header'
+import Footer from './Footer'
+import S from '../style/styles'
+
 
 
 const Dashboard = props => {
+  console.log('categorie', props.categories)
   return (
-    <Fragment>
+    <S.Wrapper>
+      <Header />
+
       <CategoryForm onComplete={props.addCategory} buttonText="create" />
-      {props.categories.map(category => (
+      {props.categories.categories.map(category => (
         <li key={category.id}>
-          <CategoryItem category={category} budget={category.budget} onComplete={props.updateCategory} onDelete={props.deleteCategory} />
+          <CategoryItem name={category.name}  budget={category.budget} onComplete={props.updateCategory} onDelete={props.deleteCategory} />
         </li>
       ))}
-    </Fragment>
+      <Footer />
+    </S.Wrapper>
   );
 };
 
@@ -31,6 +39,6 @@ Dashboard.propTypes = {
   addCategory: PropTypes.func,
   updateCategory: PropTypes.func,
   deleteCategory: PropTypes.func,
-  categories: PropTypes.array,
+  categories: PropTypes.object,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

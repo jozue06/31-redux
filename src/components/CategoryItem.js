@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CategoryForm from './CategoryForm';
+import S from '../style/styles'
 
 export default class CategoryItem extends Component {
 
@@ -15,8 +16,8 @@ export default class CategoryItem extends Component {
   updateCategory = (category) => {
     this.setState({
       editing: false
-    });
-    this.props.onComplete(category);
+    }, () => console.log('sthate', this.props, ' and cattss:', category));
+    this.props.onComplete(this.props);
   }
 
   deleteCategory = () => {
@@ -26,14 +27,14 @@ export default class CategoryItem extends Component {
 
   render() {
     return (
-      <div> 
-      <span onClick={this.showEditForm}>Category: {this.props.category.category} Budget: {this.props.category.budget}</span>
+      <S.Wrapper>
+      <S.Text onClick={this.showEditForm}>Category: {this.props.name} Budget: {this.props.budget}</S.Text>
       <button onClick={this.deleteCategory}>x</button>
-      {this.state.editing && <CategoryForm onComplete={this.updateCategory} buttonText="update" category={this.props.category} budget={this.props.budget} />}
-      </div>
+      {this.state.editing && <CategoryForm onComplete={this.updateCategory} buttonText="update" name={this.props.name} budget={this.props.budget} />}
+      </S.Wrapper>
     );
   }
-}
+} 
 
 CategoryItem.propTypes = {
   onComplete: PropTypes.func,

@@ -5,24 +5,35 @@ const ADD = 'Category/ADD';
 const UPDATE = 'Category/UPDATE';
 const DELETE = 'Ccategory/DELETE';
 
-const defaultState = [];
+
 
 // Reducer
-export default function reducer(state = defaultState, action) {
+export default function reducer(state = {categories:[]}, action) {
 
   const {type, payload} = action;
 
   switch (type) {
     case ADD:
       payload.id = uuid();
+      payload.timestamp = new Date();
     
-      return [...state, payload];
+      return {
+         ...state, 
+         categories: [...state.categories, payload]
+        
+      }
 
     case UPDATE:
-      return state.map(category => category.id === payload.id ? payload : category);
+      return {  
+        ...state,
+      categories: state.categories.map(category => category.id === payload.id ? payload : category)
+      }
     
     case DELETE:
-      return state.filter(category => category.id !== payload.id);
+      return {
+        ...state, 
+        categories: state.categories.filter(category => category.id !== payload.id)
+      };
 
     default: return state;
   }
