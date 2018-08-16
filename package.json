@@ -42,9 +42,19 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "watch": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "start": "node ./src/server.js",
+    "postinstall": "npm run build"
+  },
+  "jest": {
+    "testURL": "http://localhost/",
+    "testPathIgnorePatterns": [
+      "./__tests__/jestSetup.js"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }
