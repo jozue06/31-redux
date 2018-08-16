@@ -19,7 +19,7 @@ const Dashboard = props => {
       <CategoryForm onComplete={props.addCategory} buttonText="create" />
       {props.categories.categories.map(category => (
         <li key={category.id}>
-          <CategoryItem name={category.name}  budget={category.budget} onComplete={props.updateCategory} onDelete={props.deleteCategory} />
+          <CategoryItem category={category} name={category.name} budget={category.budget} onComplete={props.updateCategory} onDelete={props.deleteCategory} />
         </li>
       ))}
       <Footer />

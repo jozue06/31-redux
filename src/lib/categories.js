@@ -31,8 +31,9 @@ export default function reducer(state = {categories:[]}, action) {
     
     case DELETE:
       return {
-        ...state, 
-        categories: state.categories.filter(category => category.id !== payload.id)
+      
+        categories: state.categories.filter(category => {
+         return category.id !== payload.category.id})
       };
 
     default: return state;

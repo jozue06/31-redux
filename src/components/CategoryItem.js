@@ -10,18 +10,18 @@ export default class CategoryItem extends Component {
   };
 
   showEditForm = () => {
-    this.setState({ editing: true })
+    this.setState({ editing: true },() => console.log('sthate 1', this.props))
   }
 
   updateCategory = (category) => {
     this.setState({
       editing: false
-    }, () => console.log('sthate', this.props, ' and cattss:', category));
-    this.props.onComplete(this.props);
+    }, () => console.log('update the state', category));
+    this.props.onComplete(category);
   }
 
   deleteCategory = () => {
-    this.props.onDelete(this.props.category);
+    this.props.onDelete(this.props);
   }
 
 
@@ -30,7 +30,7 @@ export default class CategoryItem extends Component {
       <S.Wrapper>
       <S.Text onClick={this.showEditForm}>Category: {this.props.name} Budget: {this.props.budget}</S.Text>
       <button onClick={this.deleteCategory}>x</button>
-      {this.state.editing && <CategoryForm onComplete={this.updateCategory} buttonText="update" name={this.props.name} budget={this.props.budget} />}
+      {this.state.editing && <CategoryForm category={this.props.category} onComplete={this.updateCategory} buttonText="update" name={this.props.name} budget={this.props.budget} />}
       </S.Wrapper>
     );
   }
@@ -39,5 +39,5 @@ export default class CategoryItem extends Component {
 CategoryItem.propTypes = {
   onComplete: PropTypes.func,
   onDelete: PropTypes.func,
-  category: PropTypes.object,
+  categories: PropTypes.object,
 }

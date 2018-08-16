@@ -18,13 +18,23 @@ class CategoryForm extends Component {
   
   onSubmit = event => {
     event.preventDefault();
+    if(this.props.category){
+      this.props.onComplete( {
+        ...this.state,
+      id: this.props.category.id,
+      timestamp: this.props.category.timestamp
+    })
+    }
+    else{
+    console.log('state #1 ', this.state)
     this.props.onComplete(this.state);
-    this.setState({ ...this.defaultState }, () => console.log('state ', this.state));
+    this.setState({ ...this.defaultState }, () => console.log('state #2', this.state));
+    }
   };
 
   onChange = event => {
     
-
+    console.log('change hpapening', this.state);
     const changedBit = {
       [event.target.name]: event.target.value
     };
@@ -35,8 +45,8 @@ class CategoryForm extends Component {
     return (
       <S.Wrapper>
       <form onSubmit={this.onSubmit}>
-        <input name="name" type="text" iropdent="category formstuff" placeholder="category" value={this.props.name} onChange={this.onChange} />
-        <input name="budget" type="number" placeholder="budget" value={this.props.budget} onChange={this.onChange} />
+        <input name="name" type="text" placeholder="category" value={this.state.name} onChange={this.onChange} />
+        <input name="budget" type="number" placeholder="budget" value={this.state.budget} onChange={this.onChange} />
         <button>{this.props.buttonText}</button>
       </form>
       </S.Wrapper>
@@ -47,7 +57,9 @@ class CategoryForm extends Component {
 CategoryForm.propTypes = {
   onComplete: PropTypes.func.isRequired,
   buttonText: PropTypes.string.isRequired,
-  category: PropTypes.object,
+  categories: PropTypes.object,  
+  name: PropTypes.string,
+  budget: PropTypes.string,
 }
 
 CategoryForm.defaultProps = {
