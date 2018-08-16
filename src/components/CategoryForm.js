@@ -45,9 +45,11 @@ class CategoryForm extends Component {
     return (
       <S.Wrapper>
       <form onSubmit={this.onSubmit}>
-        <input name="name" type="text" placeholder="category" value={this.state.name} onChange={this.onChange} />
-        <input name="budget" type="number" placeholder="budget" value={this.state.budget} onChange={this.onChange} />
-        <button>{this.props.buttonText}</button>
+        <input name="name" type="text" placeholder="Note Title" value={this.state.name} onChange={this.onChange} />
+        <br />
+        <textarea name="budget" type="text" placeholder="Note Text" value={this.state.budget} onChange={this.onChange} />
+        <br />
+        <S.Button>{this.props.buttonText}</S.Button>
       </form>
       </S.Wrapper>
     );

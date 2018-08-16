@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CategoryItem from './CategoryItem';
-import S from '../style/styles'
 
 export default class CategoryList extends Component {
     render() {
