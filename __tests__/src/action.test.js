@@ -1,15 +1,25 @@
 import React from 'react';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-require('jest');
+import renderer from 'react-test-renderer';
 
-Enzyme.configure({adapter: new Adapter()});
-import Dashboard from '../component/dashboard/dashboard';
+import App from '../../../src/main.js';
 
-describe('Dashboard', () => {
-  test('Testing initial state', () => {
-    let mountedDashboard = Enzyme.mount(<Dashboard />);
+describe('<App/> (Enzyme Test)', () => {
+  it('is alive at application start', () => {
+    let app = shallow(<App/>);
+    expect(app.find('main').exists()).toBeTruthy();
+    expect(app.find('Header').exists()).toBeTruthy();
+  });
+});
 
-    expect(mountedDashboard.state('expenses')).toEqual('gregor');
+describe('<App/> (Snapshot Test)', () => {
+  it('renders right', () => {
+    const component = renderer.create(
+      <App />
+    );
+
+    let tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+
   });
 });
