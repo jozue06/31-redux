@@ -8,20 +8,21 @@ const DELETE = 'Ccategory/DELETE';
 
 
 // Reducer
-export default function reducer(state = {categories:[]}, action) {
+// eslint-disable-next-line
+export default function reducer(state = localStorage.state && JSON.parse(localStorage.state) || {categories:[]}, action) {
 
   const {type, payload} = action;
-
+  let newState;
   switch (type) {
     case ADD:
-      payload.id = uuid();
-      payload.timestamp = new Date();
-    
-      return {
-         ...state, 
-         categories: [...state.categories, payload]
-        
-      }
+    newState = { 
+      categories: [...state.categories, payload],
+      id: uuid(),
+      timestamp: new Date()
+    }
+    localStorage.state = JSON.stringify(newState)
+      return newState
+
 
     case UPDATE:
       return {  
