@@ -3,7 +3,7 @@ import uuid from 'uuid/v1';
 // Actions
 const ADD = 'Category/ADD';
 const UPDATE = 'Category/UPDATE';
-const DELETE = 'Ccategory/DELETE';
+const DELETE = 'Category/DELETE';
 
 
 

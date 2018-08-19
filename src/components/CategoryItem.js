@@ -10,7 +10,7 @@ export default class CategoryItem extends Component {
   };
 
   showEditForm = () => {
-    this.setState({ editing: true },() => console.log('sthate 1', this.props))
+    this.setState({ editing: true }, () => console.log('sthate 1', this.props))
   }
 
   updateCategory = (category) => {
@@ -28,13 +28,18 @@ export default class CategoryItem extends Component {
   render() {
     return (
       <S.Wrapper>
-      <S.Text onClick={this.showEditForm}>Category: {this.props.name} Budget: {this.props.budget}</S.Text>
-      <button onClick={this.deleteCategory}>x</button>
-      {this.state.editing && <CategoryForm category={this.props.category} onComplete={this.updateCategory} buttonText="update" name={this.props.name} budget={this.props.budget} />}
+        <S.Text onClick={this.showEditForm}>Category: {this.props.name} Budget: {this.props.budget}</S.Text>
+        <button onClick={this.deleteCategory}>x</button>
+        {this.state.editing && <CategoryForm
+          category={this.props.category}
+          onComplete={this.updateCategory}
+          buttonText="update"
+          name={this.props.name}
+          budget={this.props.budget} />}
       </S.Wrapper>
     );
   }
-} 
+}
 
 CategoryItem.propTypes = {
   onComplete: PropTypes.func,
